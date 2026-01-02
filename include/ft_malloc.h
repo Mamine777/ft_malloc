@@ -6,7 +6,7 @@
 /*   By: mokariou <mokariou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:15:56 by mokariou          #+#    #+#             */
-/*   Updated: 2025/12/08 15:14:55 by mokariou         ###   ########.fr       */
+/*   Updated: 2026/01/02 12:16:25 by mokariou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,21 @@ t_block *split_block(t_block *block, size_t requested_size);
 size_t aligned(size_t size);
 t_zone *create_new_zone(t_zone_type type, size_t requested_size_if_large);
 t_zone_type get_zone_type(size_t size);
-t_block *find_free_block(t_zone *zone, size_t size);
-void *block_to_ptr(t_block *block);
-t_block *ptr_to_block(void *ptr);
-t_zone **get_zone_head(t_zone_type type);
-t_zone *create_tiny_zone(void);
-t_zone *create_small_zone(void);
-t_zone *create_large_zone(size_t requested_size);
-void merge_with_next(t_block *block);
+t_block	*find_free_block(t_zone *zone, size_t size);
+void	*block_to_ptr(t_block *block);
+t_block	*ptr_to_block(void *ptr);
+t_zone	**get_zone_head(t_zone_type type);
+t_zone	*create_tiny_zone(void);
+t_zone	*create_small_zone(void);
+t_zone	*create_large_zone(size_t requested_size);
+void	merge_with_next(t_block *block);
 t_block *merge_with_prev(t_block *block);
 void	*malloc_tiny(size_t size);
 void	*malloc_small(size_t size);
 void    *malloc_large(size_t size);
+void 	print_memory_layout(t_zone *zone);
+t_zone	*find_zone_for_block(t_block *block);
+
 
 
 

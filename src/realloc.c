@@ -6,7 +6,7 @@
 /*   By: mokariou <mokariou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 14:54:08 by mokariou          #+#    #+#             */
-/*   Updated: 2025/12/08 15:24:12 by mokariou         ###   ########.fr       */
+/*   Updated: 2026/01/02 12:18:13 by mokariou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,21 @@ void	*ft_realloc(void *ptr, size_t size)
 	next = block->next;
 	// try to merge with next block if it's free and has enough space
 	if (next && next->free &&
-        block->size + sizeof(t_block) + next->size >= aligned_size)
+        block->size + sizeof(t_block) + next->size >= aligned(size))	
 	{
 		merge_with_next(block);
 		block = split_block(block, aligned(size));
 		pthread_mutex_unlock(&g_malloc_mutex);
 		return block_to_ptr(block);
 	}
-	pthread_mutex_unlock(&g_malloc_mutex);
 	//alocate new block
+	copy_size = (block->size < size) ? block->size : size;
+	pthread_mutex_unlock(&g_malloc_mutex);
+
 	new_ptr = ft_malloc(size);
 	if (!new_ptr)
 		return NULL;
-	memcpy(new_ptr, ptr, block->size);	
+	memcpy(new_ptr, ptr, copy_size);
 	ft_free(ptr);
 	return (new_ptr);
 }
