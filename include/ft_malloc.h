@@ -6,7 +6,7 @@
 /*   By: mokariou <mokariou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:15:56 by mokariou          #+#    #+#             */
-/*   Updated: 2026/01/02 12:16:25 by mokariou         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:42:37 by mokariou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ extern pthread_mutex_t g_malloc_mutex;
 
 void *ft_malloc(size_t size);
 void ft_free(void *ptr);
-void *realloc(void *ptr, size_t size);
+void *ft_realloc(void *ptr, size_t size);
+
 void show_alloc_mem(void);
 
 t_block *split_block(t_block *block, size_t requested_size);

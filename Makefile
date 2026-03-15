@@ -1,12 +1,10 @@
-NAME        = libft_malloc.so
-EXEC        = malloc
+NAME    = libft_malloc.so
+EXEC    = malloc
 
-CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -fPIC
-LDFLAGS     = -shared -lpthread
-EXEC_FLAGS  = -lpthread
-
-# ---------------- SOURCES ---------------- #
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror -fPIC -g
+LDFLAGS = -shared -lpthread
+EXEC_FLAGS = -lpthread
 
 SRC = \
 	src/ft_malloc.c \
@@ -16,27 +14,33 @@ SRC = \
 	src/malloc_utils/utils.c \
 	src/malloc_utils/zones.c
 
-OBJ = $(SRC:.c=.o)
-
+OBJDIR = obj
+OBJ = $(SRC:src/%.c=$(OBJDIR)/%.o)
 INC = -I./include
 
 # ---------------- RULES ---------------- #
 
-all: $(NAME)
+all: $(NAME) $(EXEC)
 
-# Shared library
+# Create obj folder if not exists
+$(OBJDIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+# Build shared library
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) -o $(NAME)
 
-# Executable
-$(EXEC): $(OBJ)
-	$(CC) $(OBJ) $(EXEC_FLAGS) -o $(EXEC)
+# Build executable
+$(EXEC): main.o $(NAME)
+	$(CC) main.o -L. -lft_malloc -lpthread -o $(EXEC)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+# Compile main.o
+main.o: main.c
+	$(CC) $(CFLAGS) $(INC) -c main.c -o main.o
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) main.o
 
 fclean: clean
 	rm -f $(NAME) $(EXEC)

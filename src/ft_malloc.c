@@ -6,7 +6,7 @@
 /*   By: mokariou <mokariou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:52:32 by mokariou          #+#    #+#             */
-/*   Updated: 2025/12/05 12:12:31 by mokariou         ###   ########.fr       */
+/*   Updated: 2026/03/15 14:37:19 by mokariou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,3 @@ void	*ft_malloc(size_t size)
 	return NULL;
 }
 
-int main()
-{
-    char *a = ft_malloc(50);
-    strcpy(a, "hello");
-
-    ft_free(a);
-
-    char *b = ft_malloc(50);
-
-    printf("a = %p\n", a);
-    printf("b = %p\n", b);
-
-    if (a == b)
-        printf("OK ✓  reused same block\n");
-    else
-        printf("FAILED ✗  did not reuse block\n");
-}
